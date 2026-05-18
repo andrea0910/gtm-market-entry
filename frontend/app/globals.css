@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tailwind's base layer sets max-width on img elements, which breaks Leaflet tile rendering */
+.leaflet-container img {
+  max-width: none;
+}

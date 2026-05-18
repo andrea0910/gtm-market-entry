@@ -1,0 +1,34 @@
+# Claude Code metadata
+CLAUDE.md
+.claude/
+
+# Node
+node_modules/
+*.local
+
+# Next.js build output
+.next/
+.vercel/
+
+# Cloudflare Wrangler
+.wrangler/
+
+# Secrets / env
+.env
+.env.*
+.env.local
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db

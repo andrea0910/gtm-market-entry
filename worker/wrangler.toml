@@ -1,0 +1,12 @@
+name = "market-intel-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "market-intel-db"
+# Replace this value with the database_id printed by `wrangler d1 create market-intel-db`
+database_id = "placeholder"
+
+[triggers]
+crons = ["0 * * * *"]
