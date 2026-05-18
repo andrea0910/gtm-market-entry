@@ -1,6 +1,6 @@
 # Market Intelligence Agent
 
-Monitors public signals — job postings, news, regulatory filings, earnings call transcripts, competitor blogs — and surfaces synthesized insights for strategic decision-making. Primary case study: Nubank's US market expansion.
+Monitors public signals: job postings, news, regulatory filings, earnings call transcripts, competitor blogs — and surfaces synthesized insights for strategic decision-making. 
 
 ## Architecture
 
