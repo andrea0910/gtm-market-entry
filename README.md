@@ -185,5 +185,5 @@ npm run build && npm run deploy
 | Top Bar | `components/TopBar.tsx` | Horizon selector, region filter, Generate Plan button |
 | Eval | `app/eval/page.tsx` | Grounded vs. vanilla comparison with hallucination detection |
 
-## Acknowledgements
+## Acknowledgement
 This project was co-created with Claude Code. More specifically, Claude Code was used to create the foundation layers of the dashboards and improve the UI. 
