@@ -8,6 +8,7 @@ interface Stakeholder {
   name: string
   role: string | null
   type: string
+  public_positions: string | null
 }
 
 const GROUP_LABEL: Record<string, string> = {
@@ -35,7 +36,7 @@ export default function StakeholderPanel({ companyId }: { companyId: string }) {
   return (
     <div className="rounded-lg border border-gray-200 bg-white flex-none">
       <div className="px-4 py-2.5 border-b border-gray-100">
-        <h2 className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest">
+        <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-widest">
           Stakeholders
         </h2>
       </div>
@@ -50,7 +51,7 @@ export default function StakeholderPanel({ companyId }: { companyId: string }) {
         ) : empty ? (
           <div className="px-4 py-5 text-center">
             <p className="text-xs text-gray-400">No stakeholders yet.</p>
-            <p className="text-[10px] text-gray-300 mt-1">
+            <p className="text-xs text-gray-300 mt-1">
               Add stakeholders to track key individuals in this market.
             </p>
           </div>
@@ -58,14 +59,19 @@ export default function StakeholderPanel({ companyId }: { companyId: string }) {
           Object.entries(groups).map(([type, people]) => (
             <div key={type}>
               <div className="px-4 py-1 bg-gray-50 border-y border-gray-100 first:border-t-0">
-                <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
                   {GROUP_LABEL[type] ?? type}
                 </span>
               </div>
               {people.map(p => (
-                <div key={p.id} className="px-4 py-2 border-b border-gray-50 hover:bg-gray-50 last:border-0">
+                <div key={p.id} className="px-4 py-2.5 border-b border-gray-50 hover:bg-gray-50 last:border-0">
                   <p className="text-xs font-medium text-gray-900">{p.name}</p>
-                  {p.role && <p className="text-[10px] text-gray-400">{p.role}</p>}
+                  {p.role && <p className="text-xs text-gray-500 mt-0.5">{p.role}</p>}
+                  {p.public_positions && (
+                    <p className="text-xs text-gray-400 mt-1 leading-relaxed line-clamp-2">
+                      {p.public_positions}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>

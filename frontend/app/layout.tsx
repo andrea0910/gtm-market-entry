@@ -1,24 +1,18 @@
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import './globals.css'
 
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+
 export const metadata: Metadata = {
-  title: 'Market Intelligence',
+  title: 'Nubank US · Market Intelligence',
   description: 'Market signals dashboard for Nubank US expansion',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        {/* Leaflet CSS loaded from CDN to avoid webpack-bundled CSS import issues */}
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossOrigin=""
-        />
-      </head>
-      <body className="bg-gray-50 text-gray-900 antialiased">{children}</body>
+    <html lang="en" className={inter.variable}>
+      <body className="bg-slate-50 text-gray-900 antialiased font-sans">{children}</body>
     </html>
   )
 }

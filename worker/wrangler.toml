@@ -9,4 +9,4 @@ database_name = "market-intel-db"
 database_id = "placeholder"
 
 [triggers]
-crons = ["0 * * * *"]
+crons = ["0 */6 * * *", "0 */2 * * *", "0 * * * *", "0 8 * * *", "0 22 * * *", "0 */4 * * *"]

@@ -1,7 +1,7 @@
 -- D1 enforces foreign keys only when explicitly enabled per connection.
 -- Set `PRAGMA foreign_keys = ON` in the Worker before any DML to activate these constraints.
 
--- ─── companies ───────────────────────────────────────────────────────────────
+-- ─── companies 
 -- One row per market-entry initiative. In practice this starts as one row (Nubank US),
 -- but the schema supports multiple expansion programs without structural changes.
 CREATE TABLE IF NOT EXISTS companies (
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS companies (
   updated_at      TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
--- ─── accounts ────────────────────────────────────────────────────────────────
+-- ─── accounts 
 -- Entities in the target market the GM monitors: competitors, partners, prospects,
 -- and regulatory bodies. All signals ultimately resolve to one of these.
 CREATE TABLE IF NOT EXISTS accounts (
@@ -34,7 +34,10 @@ CREATE TABLE IF NOT EXISTS accounts (
   -- competitors: { est_customers, last_valuation_usd, ticker, revenue_model }
   -- regulators:  { type, key_rule_areas[] }
   -- partners:    { model, integration_readiness }
-  metadata    TEXT,
+  metadata           TEXT,
+  -- Job board integration: 'greenhouse' | 'lever' | NULL (no public board / not tracked)
+  job_board_provider TEXT,
+  job_board_slug     TEXT,
   created_at  TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -43,7 +46,7 @@ CREATE INDEX IF NOT EXISTS idx_accounts_company_id ON accounts(company_id);
 CREATE INDEX IF NOT EXISTS idx_accounts_type       ON accounts(type);
 CREATE INDEX IF NOT EXISTS idx_accounts_tier       ON accounts(tier);
 
--- ─── stakeholders ────────────────────────────────────────────────────────────
+-- ─── stakeholders 
 -- Named individuals relevant to the market entry.
 -- account_id links to their employer when that org is already tracked; use notes otherwise.
 CREATE TABLE IF NOT EXISTS stakeholders (
@@ -69,7 +72,7 @@ CREATE INDEX IF NOT EXISTS idx_stakeholders_company_id ON stakeholders(company_i
 CREATE INDEX IF NOT EXISTS idx_stakeholders_account_id ON stakeholders(account_id);
 CREATE INDEX IF NOT EXISTS idx_stakeholders_type       ON stakeholders(type);
 
--- ─── sources ─────────────────────────────────────────────────────────────────
+-- ─── sources 
 -- Configured ingestion endpoints. Each row is one monitored URL that the cron
 -- job fetches on its interval. scrape_config stores extraction rules as JSON.
 CREATE TABLE IF NOT EXISTS sources (
@@ -90,7 +93,7 @@ CREATE TABLE IF NOT EXISTS sources (
 CREATE INDEX IF NOT EXISTS idx_sources_company_id ON sources(company_id);
 CREATE INDEX IF NOT EXISTS idx_sources_is_active  ON sources(is_active);
 
--- ─── plans ───────────────────────────────────────────────────────────────────
+-- ─── plans
 -- Defined before signals so insights can reference plans via plan_id.
 -- A plan is a Claude-generated GTM document scoped to a time horizon and the GM's stated thesis.
 CREATE TABLE IF NOT EXISTS plans (
@@ -112,7 +115,7 @@ CREATE TABLE IF NOT EXISTS plans (
 CREATE INDEX IF NOT EXISTS idx_plans_company_id ON plans(company_id);
 CREATE INDEX IF NOT EXISTS idx_plans_status     ON plans(status);
 
--- ─── signals ─────────────────────────────────────────────────────────────────
+-- ─── signals
 -- One row per discrete ingested event. This is the central fact table —
 -- every other table either provides context (accounts, stakeholders, sources)
 -- or derives from it (insights, plan_critiques).
@@ -170,7 +173,7 @@ CREATE INDEX IF NOT EXISTS idx_signals_stakeholder_id ON signals(stakeholder_id)
 CREATE INDEX IF NOT EXISTS idx_signals_processed      ON signals(processed);
 CREATE INDEX IF NOT EXISTS idx_signals_published_at   ON signals(published_at);
 
--- ─── insights ────────────────────────────────────────────────────────────────
+-- ─── insights
 -- Claude's analysis output, one row per (signal, plan) pair.
 -- Kept separate from signals so:
 --   1. Ingestion never blocks on Claude API latency
@@ -189,7 +192,7 @@ CREATE TABLE IF NOT EXISTS insights (
 CREATE INDEX IF NOT EXISTS idx_insights_signal_id ON insights(signal_id);
 CREATE INDEX IF NOT EXISTS idx_insights_plan_id   ON insights(plan_id);
 
--- ─── plan_critiques ──────────────────────────────────────────────────────────
+-- ─── plan_critiques 
 -- Constraint warnings surfaced when Claude generates or re-evaluates a plan.
 -- signal_ids is a JSON array because SQLite has no array FK type;
 -- resolve it in application code to load the triggering evidence in the UI.
