@@ -4,17 +4,17 @@ A Bloomberg-style intelligence terminal for go-to-market expansion teams. Built 
 
 ## What it does
 
-**Live Signal Feed** — Auto-scrolling ticker of competitor and market signals (news, job postings, regulatory filings, earnings, blogs). Each card links to its source. Hover to browse manually; the feed continues scrolling.
+**Live Signal Feed**: Auto-scrolling ticker of competitor and market signals (news, job postings, regulatory filings, earnings, blogs). Each card links to its source. Hover to browse manually; the feed continues scrolling.
 
-**Market Brief** — AI-generated brief that loads automatically when the dashboard opens. Structured into sections (Key Developments, Competitive Landscape, Regulatory Watch, Open Questions). Open Questions are expandable: click any bullet to generate a grounded hypothesis based on recent signals, fetched on demand.
+**Market Brief**: AI-generated brief that loads automatically when the dashboard opens. Structured into sections (Key Developments, Competitive Landscape, Regulatory Watch, Open Questions). Open Questions are expandable: click any bullet to generate a grounded hypothesis based on recent signals, fetched on demand.
 
-**Pattern Detection (Composed Signals)** — A second Claude pass over raw signals looks for cross-source patterns: hiring clusters (3+ hires in one capability within 14 days), competitive escalation (2+ high-importance signals from one account), regulatory overlap, and cross-source co-occurrence. Quiet patterns (no recent activity) are shown explicitly so silence is also signal.
+**Pattern Detection (Composed Signals)**: A second Claude pass over raw signals looks for cross-source patterns: hiring clusters (3+ hires in one capability within 14 days), competitive escalation (2+ high-importance signals from one account), regulatory overlap, and cross-source co-occurrence. Quiet patterns (no recent activity) are shown explicitly so silence is also signal.
 
-**Account Board** — Per-competitor and per-regulator cards with signal counts, tier prioritization, and the top recent signal linked to its source URL.
+**Account Board**: Per-competitor and per-regulator cards with signal counts, tier prioritization, and the top recent signal linked to its source URL.
 
-**GTM Plan Generator** — Full-screen overlay with a visual milestone timeline, account priorities sidebar, watch items, and constraint advisories. Plans are scoped to 30/90/180/365-day horizons and downloadable as `.md`.
+**GTM Plan Generator**: Full-screen overlay with a visual milestone timeline, account priorities sidebar, watch items, and constraint advisories. Plans are scoped to 30/90/180/365-day horizons and downloadable as `.md`.
 
-**Eval Page** (`/eval`) — Side-by-side comparison of vanilla Claude vs. retrieval-grounded Claude for a given market question. Shows hallucination detection with per-claim grounding verification, a grounded-% circular gauge, and metric bars comparing both outputs.
+**Eval Page** (`/eval`): Side-by-side comparison of vanilla Claude vs. retrieval-grounded Claude for a given market question. Shows hallucination detection with per-claim grounding verification, a grounded-% circular gauge, and metric bars comparing both outputs.
 
 ## Architecture
 
